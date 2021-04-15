@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreData
 
 class EntriesTableViewController: UITableViewController {
     
@@ -19,8 +20,13 @@ class EntriesTableViewController: UITableViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         if let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext {
-            // fetch request
-            if let entriesFromCoreData = try? context.fetch(Entry.fetchRequest()) as? [Entry]{
+            
+            // fetch request and sorting cells by date
+            
+            let request: NSFetchRequest<Entry> = Entry.fetchRequest()
+            request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
+            
+            if let entriesFromCoreData = try? context.fetch(request) {
                 entries = entriesFromCoreData
                 tableView.reloadData()
             }
@@ -35,18 +41,32 @@ class EntriesTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
         
-        let entry = entries[indexPath.row].text
+        // MARK: - Adding datas to customized table view cell
         
-        cell.textLabel?.text = entry
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "EntryCell") as? EntryTableViewCell{
+            let entry = entries[indexPath.row]
+            cell.entryLabel.text = entry.text
+            cell.monthLabel.text = entry.month()
+            cell.dayLabel.text = entry.day()
+            //cell.textLabel?.text = entry
+            
+            return cell
+        }
         
-        return cell
+        return UITableViewCell()
+        
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let entry = entries[indexPath.row]
         performSegue(withIdentifier: "segueToEntry", sender: entry)
+    }
+    
+    // MARK: - Custom TableView Cell
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

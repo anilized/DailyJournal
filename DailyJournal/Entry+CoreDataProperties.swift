@@ -22,5 +22,27 @@ extension Entry {
 }
 
 extension Entry : Identifiable {
+    
+    // MARK: - Date things done with date formatter
+    
+    func month() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMM"
+        if let dateToBeFormatted = date {
+            let month = dateFormatter.string(from: dateToBeFormatted)
+            return month.uppercased()
+        }
+        return ""
+    }
+    
+    func day() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "d"
+        if let dateToBeFormatted = date {
+            let day = dateFormatter.string(from: dateToBeFormatted)
+            return day
+        }
+        return ""
+    }
 
 }
