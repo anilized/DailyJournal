@@ -1,24 +1,135 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="crP-pA-Xdm">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
-        <scene sceneID="tne-QT-ifu">
+        <!--Daily Journal-->
+        <scene sceneID="RUF-pc-Pf3">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                <tableViewController id="LSa-UY-vwJ" customClass="EntriesTableViewController" customModule="DailyJournal" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Oqg-gD-T2R">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" xcode11CocoaTouchSystemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="f7u-cg-sSY">
+                                <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="f7u-cg-sSY" id="jlQ-xq-tSc">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="LSa-UY-vwJ" id="nWp-5Q-xAg"/>
+                            <outlet property="delegate" destination="LSa-UY-vwJ" id="KmF-hp-iPp"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Daily Journal" id="ye8-ca-31l">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="dHF-xh-QIq"/>
+                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="compose" id="DYE-m8-Rgl">
+                            <connections>
+                                <segue destination="fEC-K7-kOj" kind="show" identifier="segueToEntry" id="gq2-lz-gr3"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rpm-6z-xTH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="1076.8115942028987" y="84.375"/>
+        </scene>
+        <!--Entry View Controller-->
+        <scene sceneID="PVx-8I-FPd">
+            <objects>
+                <viewController id="fEC-K7-kOj" customClass="EntryViewController" customModule="DailyJournal" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="umN-nI-hl2">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" translatesAutoresizingMaskIntoConstraints="NO" id="gwE-yB-hoN">
+                                <rect key="frame" x="47" y="98" width="320" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="Ynu-0n-3aj"/>
+                                </constraints>
+                                <connections>
+                                    <action selector="datePickerChanged:" destination="fEC-K7-kOj" eventType="valueChanged" id="mpn-5l-nOX"/>
+                                </connections>
+                            </datePicker>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Itz-Hh-hgN">
+                                <rect key="frame" x="20" y="218" width="374" height="624"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="asw-b6-qVg"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="gwE-yB-hoN" firstAttribute="centerX" secondItem="umN-nI-hl2" secondAttribute="centerX" id="830-55-nlh"/>
+                            <constraint firstItem="Itz-Hh-hgN" firstAttribute="top" secondItem="gwE-yB-hoN" secondAttribute="bottom" constant="20" id="C7O-o5-MqG"/>
+                            <constraint firstItem="asw-b6-qVg" firstAttribute="bottom" secondItem="Itz-Hh-hgN" secondAttribute="bottom" constant="20" id="RPU-B4-3yw"/>
+                            <constraint firstItem="asw-b6-qVg" firstAttribute="trailing" secondItem="Itz-Hh-hgN" secondAttribute="trailing" constant="20" id="Tbl-GZ-eej"/>
+                            <constraint firstItem="Itz-Hh-hgN" firstAttribute="leading" secondItem="asw-b6-qVg" secondAttribute="leading" constant="20" id="bEH-6t-O9P"/>
+                            <constraint firstItem="gwE-yB-hoN" firstAttribute="top" secondItem="asw-b6-qVg" secondAttribute="top" constant="10" id="qQk-aI-wq0"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="U6u-ug-OJz">
+                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="trash" id="coH-zd-r2d">
+                            <color key="tintColor" systemColor="systemRedColor"/>
+                            <connections>
+                                <action selector="deleteEntry:" destination="fEC-K7-kOj" id="Stt-7d-gZJ"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="bottomConstraint" destination="RPU-B4-3yw" id="5Wl-d2-nhc"/>
+                        <outlet property="entryDateVar" destination="gwE-yB-hoN" id="hyG-bC-x5J"/>
+                        <outlet property="entryDescVar" destination="Itz-Hh-hgN" id="phO-Nx-a5S"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2S5-hK-FCJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1874" y="85"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="OeS-3e-Cd9">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="crP-pA-Xdm" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="RZc-I1-en4">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Mes-pD-GgF">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
+                    <connections>
+                        <segue destination="LSa-UY-vwJ" kind="relationship" relationship="rootViewController" id="NBD-vu-cQX"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lnh-Zo-lsr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="166.66666666666669" y="84.375"/>
         </scene>
     </scenes>
+    <resources>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
 </document>
